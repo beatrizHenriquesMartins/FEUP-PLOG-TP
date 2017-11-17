@@ -31,4 +31,12 @@ escrevemRomances(Tipo, Autor):-
 % c) Quais os autores de livros de ficção que escreveram livros de 
 %    outro tipo também?
 
-% ????
+autoresDeFiccaoEDeOutros(Autor):-
+        livro(Livro1,'Romance'),
+        livro(Livro2,'Ficção'),
+        autor(Autor,Livro1),
+        autor(Autor,Livro2).
+
+% | ?- autoresDeFiccaoEDeOutros(Autor).
+%   Autor = 'Eça de Queirós' ? ;
+%   no
