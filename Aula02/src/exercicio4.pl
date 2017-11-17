@@ -1,12 +1,6 @@
-/* -*- Mode:Prolog; 
-coding:iso-8859-1; 
-indent-tabs-mode:nil; 
-prolog-indent-width:8;
-prolog-paren-indent:3; 
-tab-width:8; -*- */
-
 /* -*- alinea a -*- */
-factorial(0,1). /* -*- condição de paragem -*- */
+/* -*- condição de paragem -*- */
+factorial(0,1).
 
 factorial(N, F) :- N > 0, /* -*- condição de continuidade -*- */
         N1 is N-1,
