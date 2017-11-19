@@ -34,8 +34,6 @@ madeItThrough(+Participant):-
 /**************
  * Pergunta 2 *
  **************/
-% juriTimes(+Participants,+JuriMember,-Times,-­Total).
-
 juriTimes([], _, [], 0).
 juriTimes([Head_P|Tail_P], JuriMember, [Head_T|Tail_T], Total):-
         juriTimes(Tail_P, JuriMember, Tail_T, SomaTotal),
@@ -69,7 +67,6 @@ patientJuri(JuriMember):-
 /**************
  * Pergunta 4 *
  **************/
-
 sum_all([], 0).
 sum_all([Head|Tail], FinalResult):-
         sum_all(Tail, FinalR),
@@ -97,10 +94,21 @@ bestParticipant(P1, P2, P):-
 /**************
  * Pergunta 5 *
  **************/
-
 allPerfs:-
         participant(Id,_,Perf),
         performance(Id, Times),
         write(Id), write(':'), write(Perf), write(':'), write(Times), nl,
         fail.
 allPerfs.
+
+/**************
+ * Pergunta 6 *
+ **************/
+not_check([]).
+not_check([Head|Tail]):-
+        Head == 120;
+        not_check(Tail).
+
+nSuccessfulParticipants(T):-
+        setof(P,(performance(P, Times), not_check(Times)), List_Result),
+        length(List_Result, T).
