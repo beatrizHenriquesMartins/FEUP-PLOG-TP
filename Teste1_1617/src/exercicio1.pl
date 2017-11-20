@@ -62,4 +62,13 @@ elemsComuns([HeadList1|TailList1], [HeadList1|Common], List2):-
         elemsComuns(TailList1, Common, List2).
 elemsComuns([_HeadList1|TailList1], Common, List2):-
         elemsComuns(TailList1, Common, List2).
-        
+
+/**************
+ * Pergunta 5 *
+ **************/
+
+printCategory(Category):-
+        filme(NomeF, ListCategories, Duracao, Pontuacao),
+        member(Category, ListCategories),
+        write(NomeF), write(' ('), write(Duracao), write('min, '), write(Pontuacao), write('/10)'), nl,
+        fail.
