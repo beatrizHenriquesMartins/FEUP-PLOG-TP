@@ -112,3 +112,56 @@ not_check([Head|Tail]):-
 nSuccessfulParticipants(T):-
         setof(P,(performance(P, Times), not_check(Times)), List_Result),
         length(List_Result, T).
+
+/**************
+ * Pergunta 7 *
+ **************/
+juriFans(juriFansList).
+
+/**************
+ * Pergunta 8 *
+ **************/
+eligibleOutcome(Id,Perf,TT) :-
+        performance(Id,Times),
+        madeItThrough(Id),
+        participant(Id,_,Perf),
+        sumlist(Times,TT).
+
+partir_List_N(_, 0, []).
+partir_List_N([Elem|List], N, [Elem|Participants]):-
+        NewN is N - 1,
+        partir_List_N(List, NewN, Participants).
+        
+
+nextPhase(N, Participants):-
+        findall(TT-Id-Perf,eligibleOutcome(Id, Perf, TT), List),
+        nl,nl,write(List), nl,nl,
+        length(List, Len),
+        Len >= N,
+        reverse(List, List1),
+        partir_List_N(List1, N, Participants).
+
+/**************
+ * Pergunta 9 *
+ **************/
+% R =ID
+% P = Performance
+% Q = Idade
+predX(Q, [R|Rs], [P|Ps]):-
+        participant(R,I,P),
+        I =< Q,
+        %!,
+        predX(Q,Rs,Ps).
+predX(Q, [R|Rs], Ps):-
+        participant(R,I,_),
+        I>Q,
+        predX(Q,Rs,Ps).
+predX(_,[],[]).
+
+/*
+        O predX proucura numa lista de Id's qual ou quais os participantes 
+que estão contidos numa determinada idade, retornando um elemento ou uma 
+nova lista.
+        O cut é verde porque a sua presença não altera qualquer valor obtido
+com cut.
+*/
