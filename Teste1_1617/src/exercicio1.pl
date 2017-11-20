@@ -1,4 +1,5 @@
-:-use_module(library(lists)).
+:- use_module(library(lists)).
+:- dynamic numero/1.
 
 % film( Title, Categories, Duration, AvgClassification).
 filme('Doctor Strange', [action, adventure, fantasy], 115, 7.6).
@@ -38,3 +39,23 @@ diff(User1, User2, Difference, Film):-
         member(Film-Vote1, List_Films1),
         member(Film-Vote2, List_Films2),
         Difference is abs(Vote1 - Vote2).
+
+/**************
+ * Pergunta 3 *
+ **************/
+numero(0).
+
+procuraVotosSuperiores([], 0).
+procuraVotosSuperiores([_Head_F-Head_V|Tail], Count):-
+        Head_V >= 8,
+        procuraVotosSuperiores(Tail, Count1),
+        Count is Count1+1.
+
+niceGuy(User):-
+        vote(User, ListFilms),
+        procuraVotosSuperiores(ListFilms, Count),
+        Count >= 2.
+
+/**************
+ * Pergunta 4 *
+ **************/
