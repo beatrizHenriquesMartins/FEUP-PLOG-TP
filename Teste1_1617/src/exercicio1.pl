@@ -1,5 +1,4 @@
 :- use_module(library(lists)).
-:- dynamic numero/1.
 
 % film( Title, Categories, Duration, AvgClassification).
 filme('Doctor Strange', [action, adventure, fantasy], 115, 7.6).
@@ -43,8 +42,6 @@ diff(User1, User2, Difference, Film):-
 /**************
  * Pergunta 3 *
  **************/
-numero(0).
-
 procuraVotosSuperiores([], 0).
 procuraVotosSuperiores([_Head_F-Head_V|Tail], Count):-
         Head_V >= 8,
@@ -59,3 +56,10 @@ niceGuy(User):-
 /**************
  * Pergunta 4 *
  **************/
+elemsComuns([], [], _).
+elemsComuns([HeadList1|TailList1], [HeadList1|Common], List2):-
+        member(HeadList1, List2),
+        elemsComuns(TailList1, Common, List2).
+elemsComuns([_HeadList1|TailList1], Common, List2):-
+        elemsComuns(TailList1, Common, List2).
+        
