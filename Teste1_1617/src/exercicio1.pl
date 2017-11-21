@@ -1,12 +1,12 @@
 :- use_module(library(lists)).
 
 % film( Title, Categories, Duration, AvgClassification).
-filme('Doctor Strange', [action, adventure, fantasy], 115, 7.6).
-filme('Hacksaw Ridge', [biography, drama, romance], 131, 8.7).
-filme('Inferno', [action, adventure, crime], 121, 6.4).
-filme('Arrival', [drama, mystery, scifi], 116, 8.5).
-filme('The Accountant', [action, crime, drama], 127, 7.6).
-filme('The Girl on the Train', [drama, mystery, thriller], 112, 6.7).
+film('Doctor Strange', [action, adventure, fantasy], 115, 7.6).
+film('Hacksaw Ridge', [biography, drama, romance], 131, 8.7).
+film('Inferno', [action, adventure, crime], 121, 6.4).
+film('Arrival', [drama, mystery, scifi], 116, 8.5).
+film('The Accountant', [action, crime, drama], 127, 7.6).
+film('The Girl on the Train', [drama, mystery, thriller], 112, 6.7).
 
 % user(Username, YearOfBirth, Coutry).
 user(jonh, 1992, 'USA').
@@ -26,7 +26,7 @@ vote(richard, ['Inferno'-10, 'Hacksaw Ridge'-10, 'Arrival'-9]).
  * Pergunta 1 *
  **************/
 curto(Movie):-
-        filme(Movie, _, Duracao, _),
+        film(Movie, _, Duracao, _),
         Duracao < 125.
 
 /**************
@@ -68,7 +68,42 @@ elemsComuns([_HeadList1|TailList1], Common, List2):-
  **************/
 
 printCategory(Category):-
-        filme(NomeF, ListCategories, Duracao, Pontuacao),
+        film(NomeF, ListCategories, Duracao, Pontuacao),
         member(Category, ListCategories),
         write(NomeF), write(' ('), write(Duracao), write('min, '), write(Pontuacao), write('/10)'), nl,
         fail.
+
+/**************
+ * Pergunta 6 *
+ **************/
+% Similarity = PercentCommonCat - 3 * DurDiff - 5 * ScoreDiff
+% PercentCommonCat = Sum(Cat comum) / total Cat
+% DurDiff = abs(Dur Film 1 -Dur Film2)
+% ScoreDiff = abs(Score Film 1 - Score Film2)
+
+similarity(Film1, Film2, Similarity):-
+        %filmes
+        film(Film1, CatF1, Duracao1, Av1),
+        film(Film2, CatF2, Duracao2, Av2),
+
+        % elementos comuns
+        elemsComuns(CatF1, ListCC, CatF2),
+
+        %tamanho das listas
+        length(CatF1, LenF1),
+        length(CatF2, LenF2),
+        length(ListCC, Len),
+        
+        Total is (LenF1+LenF2)-Len,
+        PercentCommonCat is (Len/Total)*100,
+
+        % DurDiff
+        DurDiffAux is abs(Duracao1-Duracao2),
+        DurDiff is DurDiffAux * 3,
+
+        % ScoreDiff
+        ScoreDiffAux is abs(Av1-Av2),
+        ScoreDiff is ScoreDiffAux * 5,
+
+        % Similarity
+        Similarity is PercentCommonCat - DurDiff - ScoreDiff,!.
