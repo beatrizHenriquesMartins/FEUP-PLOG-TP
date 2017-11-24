@@ -106,4 +106,20 @@ similarity(Film1, Film2, Similarity):-
         ScoreDiff is ScoreDiffAux * 5,
 
         % Similarity
-        Similarity is PercentCommonCat - DurDiff - ScoreDiff,!.
+        Similarity is PercentCommonCat - DurDiff - ScoreDiff,
+        !.
+
+/**************
+ * Pergunta 7 *
+ **************/
+% ???
+
+/**************
+ * Pergunta 8 *
+ **************/
+% Distancia = AvgDiff + AgeDiff/3 + CountryDiff
+% AvgDiff media entre a diferenca
+% AgeDiff = abs(Idade 1 - Idade 2)
+% CountryDiff 0 - True 2 - Falso
+ 
+% distancia(User1, Distancia, User2).
