@@ -17,5 +17,6 @@ carteiro_preguicoso(Visitas, D):-
         length(Visitas, 10),
         domain(Visitas, 1, 10),
         all_distinct(Visitas),
+        circuit(Visitas),
         soma_dist(Visitas, D),
         labeling([maximize(D)], Visitas).
