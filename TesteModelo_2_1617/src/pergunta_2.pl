@@ -1,6 +1,8 @@
 :- use_module(library(clpfd)).
+:- use_module(library(lists)).
 
 p2(L1,L2) :-
+      % tamanho igual
       length(L1,N),
       length(L2,N),
       %
