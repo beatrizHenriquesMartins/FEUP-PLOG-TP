@@ -45,6 +45,12 @@ isAgeAppropriate(Name, Game) :-
 % * Pergunta 3 *
 % **************
 
+listGamesOfCategory(Cat):-
+        game(Game, Categories, MinAge),
+        member(Cat, Categories),
+        write(Game), write(' '), write('('), write(MinAge), write(')'), nl,
+        fail;true.
+
 % **************
 % * Pergunta 4 *
 % **************
