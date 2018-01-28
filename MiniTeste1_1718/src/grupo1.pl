@@ -1,4 +1,5 @@
 :-use_module(library(lists)).
+:-dynamic played/4.
 
 % ******************
 % * Base de factos *
@@ -55,9 +56,25 @@ listGamesOfCategory(Cat):-
 % * Pergunta 4 *
 % **************
 
+updatePlayer(Player, Game, Hours, Percentage) :-
+        played(Player, Game, HoursPlayed, PercentageUnlocked),
+        NewHours is HoursPlayed + Hours,
+        NewPercentage is PercentageUnlocked + Percentage,
+        retract(played(Player, Game, _, _)),
+        assert(played(Player, Game, NewHours, NewPercentage)).
+
 % **************
 % * Pergunta 5 *
 % **************
+
+timePlayingGames(_, [], [], 0).
+timePlayingGames(Player, [Game|Games], [Time|ListOfTimes], SumTimes) :-
+        played(Player, Game, Time, _),
+        timePlayingGames(Player, Games, ListOfTimes, SumTimesFinal),
+        SumTimes is SumTimesFinal + Time,
+        !.
+timePlayingGames(Player, [_|Games], [0|ListOfTimes], SumTimes):-
+        timePlayingGames(Player, Games, ListOfTimes, SumTimes).
 
 % **************
 % * Pergunta 6 *
